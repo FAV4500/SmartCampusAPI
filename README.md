@@ -31,9 +31,9 @@ This is great because it acts as a guard. It stops the application from trying t
 Question 6: You implemented this filtering using @QueryParam. Contrast this with an alternative design where the type is part of the URL path (e.g., /api/vl/sensors/type/CO2). Why is the query parameter approach generally considered superior for filtering and searching collections?
 
 Answer: Using query parameters is much cleaner because the URL path is supposed to identify the "thing" (the resource), while parameters should "modify" the view. If you put filters in the path, like /type/CO2, it makes the URL structure very rigid.
-If you want to filter by three different things at once, a path-based URL gets really confusing. With @QueryParam, you just append them (like ?type=CO2&status=active). It’s much more flexible for the user because they can add or remove filters in any order without the server needing a special "path" for every possible combination.
+If you want to filter by three different things at once, a path-based URL gets really confusing. With @QueryParam, you just append them. It’s much more flexible for the user because they can add or remove filters in any order without the server needing a special "path" for every possible combination.
 
-Question 7: Discuss the architectural benefits of the Sub-Resource Locator pattern. How does delegating logic to separate classes help manage complexity in large APIs compared to defining every nested path (e.g., sensors/{id}/readings/{rid}) in one massive controller class?
+Question 7: Discuss the architectural benefits of the Sub-Resource Locator pattern. How does delegating logic to separate classes help manage complexity in large APIs compared to defining every nested path in one massive controller class?
 
 Answer: This pattern stops you from having a "God Class" that contains every single piece of logic for the whole API. If I put every endpoint in one file, it becomes huge, messy, and really hard to test.
 By delegating to sub-resources, the code is much more organized. The main class just finds the parent resource and then hands the rest of the work off to a specialized class. It makes the code modular, easier to read, and means you can fix a bug in "readings" without accidentally breaking the "sensors" logic.
