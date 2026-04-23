@@ -28,7 +28,7 @@ Question 5: We explicitly use the @Consumes (MediaType.APPLICATION_JSON) annotat
 Answer: If someone tries to send XML or plain text, JAX-RS stops them immediately. Because I used the @Consumes annotation for JSON, the server checks the "Content-Type" header of the request. If it doesn't match, the server automatically rejects it with a 415 Unsupported Media Type error.
 This is great because it acts as a guard. It stops the application from trying to process the wrong data type, which would usually lead to a messy "500 Internal Server Error" or a crash during the unmarshalling process.
 
-Question 6: You implemented this filtering using @QueryParam. Contrast this with an alternative design where the type is part of the URL path (e.g., /api/vl/sensors/type/CO2). Why is the query parameter approach generally considered superior for filtering and searching collections?
+Question 6: You implemented this filtering using @QueryParam. Contrast this with an alternative design where the type is part of the URL path. Why is the query parameter approach generally considered superior for filtering and searching collections?
 
 Answer: Using query parameters is much cleaner because the URL path is supposed to identify the "thing" (the resource), while parameters should "modify" the view. If you put filters in the path, like /type/CO2, it makes the URL structure very rigid.
 If you want to filter by three different things at once, a path-based URL gets really confusing. With @QueryParam, you just append them. It’s much more flexible for the user because they can add or remove filters in any order without the server needing a special "path" for every possible combination.
